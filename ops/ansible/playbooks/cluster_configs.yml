@@ -1,0 +1,8 @@
+---
+cluster_configs:
+  - {
+      instance_type: "c4.large",
+      instance_name: "box-1",
+      testnet: false,
+      domain: "getzion.com",
+    }

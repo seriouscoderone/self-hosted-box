@@ -1,0 +1,31 @@
+api:
+  insecure: true
+
+providers:
+  docker: {}
+
+entryPoints:
+  web:
+    address: ":80"
+
+  websecure:
+    address: ":443"
+
+  thunderhub:
+    address: ":3000"
+
+log:
+  level: "DEBUG"
+
+accessLog:
+  filePath: "/logs/traefik/traefik.json"
+  format: "json"
+
+certificatesResolvers:
+  myresolver:
+    acme:
+      email: info@getzion.com
+      storage: /letsencrypt/acme.json
+      caServer: https://acme-v02.api.letsencrypt.org/directory
+      dnsChallenge:
+        provider: route53

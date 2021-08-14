@@ -1,0 +1,18 @@
+# dependencies
+node_modules/
+
+# production bundles
+.env
+_/
+
+backups
+.lnd/
+
+export.tar.gz
+export/
+
+thubConfig.yaml
+thubConfig.tpl.yaml
+thubConfig.yaml.j2
+
+.DS_Store

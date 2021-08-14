@@ -1,0 +1,4 @@
+---
+src_path: "/box"
+git_repo: "git@github.com:getzion/self-hosted-box.git"
+git_branch: "main"

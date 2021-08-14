@@ -1,0 +1,37 @@
+version: "2"
+volumes:
+  node_modules:
+
+services:
+  relay:
+    volumes:
+      - .lnd/:/relay/.lnd
+
+    container_name: relay
+    image: n2n2/n2n2-relay
+
+    mem_limit: 512M
+    mem_reservation: 256M
+
+    ports:
+      # - "8080:8080"
+      - "8333:8333"
+      - "8888:8888"
+      - "9735:9735"
+      - "10009:10009"
+
+    command: "lnd --accept-keysend --configfile=/relay/.lnd/lnd.conf && npm start"
+
+    environment:
+      - NODE_ENV=production
+      - PORT=8888
+      - NODE_DOMAIN=$NODE_DOMAIN
+      - NODE_IP=$NODE_IP
+      - NODE_ALIAS=$NODE_ALIAS
+      - COMMUNITIES_HOST=$COMMUNITIES_HOST
+      - MEDIA_HOST_PROTOCOL=$MEDIA_HOST_PROTOCOL
+      - MEDIA_HOST=$MEDIA_HOST
+      - MACAROON_LOCATION=$MACAROON_LOCATION
+
+    env_file:
+      - /etc/environment
