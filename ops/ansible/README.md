@@ -11,7 +11,7 @@ pip install boto boto3 botocore
 code ops/ansible/playbooks/group_vars/all.yml 
 ```
 
-### Instructions
+### Commands
 ```
 cd ops/ansible
 ansible-playbook -i inventory/hosts playbooks/start-cluster.yml
@@ -24,7 +24,9 @@ docker kill $(docker ps -q)
 ```
 
 ### Logs
+```
 docker ps -q | xargs -L 1 docker logs -f
+```
 
 ### Bash
 ```

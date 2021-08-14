@@ -102,7 +102,7 @@
     ec2: "{{ ec2 }}"
     public_ip: "{{ eip.public_ip }}"
     testnet: "{{ config.testnet }}"
-    photon_app_id: "{{ config.photon_app_id }}"
+    domain: "{{ config.domain }}"
 
 - name: Add to Route 53
   community.aws.route53:

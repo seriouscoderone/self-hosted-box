@@ -11,12 +11,12 @@
 - name: Print ansible_hostname
   debug: var=ansible_host
 
-- name: Set environment variables.
-  copy:
-    dest: /etc/environment
-    content: |
-      {{ lookup('file', 'vars/.env') }}
-  become: yes
+# - name: Set environment variables.
+#   copy:
+#     dest: /etc/environment
+#     content: |
+#       {{ lookup('file', 'vars/.env') }}
+#   become: yes
 
 - name: Set NODE_DOMAIN
   lineinfile:
