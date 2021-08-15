@@ -1,6 +1,7 @@
 # self-hosted-box
 
 The following is the manual detailing steps for self-hosting  Zion relay cluster on AWS.
+Here is a video demo -> https://streamable.com/dc5hf3
 
 ## Requirements
 1. macOS + ansible [Details](ops/ansible/README.md)
