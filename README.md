@@ -26,7 +26,7 @@ Here is a video demo -> https://streamable.com/dc5hf3
 
 ## Initial Setup
 
-1. Create ansible vars file ops/ansible/group_vars/all.yml (Ansible will use these values to set up your cluster)
+1. Create ansible vars file ops/ansible/playbooks/group_vars/all.yml (Ansible will use these values to set up your cluster)
 
 ```
 aws_access_key: [YOUR_AWS_KEY]

@@ -119,6 +119,7 @@ function_menu_compose () {
     options=("compose_thunderhub" "kill_relay" "kill_thundehub" "quit")
     select opt in "${options[@]}"
     do
+        case $opt in
             "compose_thunderhub")
                 cmd="docker-compose -f docker-compose.thunderhub.yml up -d"
                 echo $cmd
@@ -131,7 +132,7 @@ function_menu_compose () {
                 $cmd          
                 ;;
 
-            "kill_thundehub")
+            "kill_thunderhub")
                 cmd="docker kill proxy"
                 echo $cmd
                 $cmd   
