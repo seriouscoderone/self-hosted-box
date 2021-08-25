@@ -18,6 +18,33 @@
       {{ lookup('file', 'vars/.env') }}
   become: yes
 
+- name: Set AWS_ACCESS_KEY_ID
+  lineinfile:
+    dest: /etc/environment
+    create: yes
+    state: present
+    regexp: "^AWS_ACCESS_KEY_ID"
+    line: "AWS_ACCESS_KEY_ID={{ aws_access_key }}"
+  become: yes
+
+- name: Set AWS_SECRET_ACCESS_KEY
+  lineinfile:
+    dest: /etc/environment
+    create: yes
+    state: present
+    regexp: "^AWS_SECRET_ACCESS_KEY"
+    line: "AWS_SECRET_ACCESS_KEY={{ aws_secret_key }}"
+  become: yes
+
+- name: Set AWS_REGION
+  lineinfile:
+    dest: /etc/environment
+    create: yes
+    state: present
+    regexp: "^AWS_REGION"
+    line: "AWS_REGION={{ aws_region }}"
+  become: yes
+
 - name: Set NODE_DOMAIN
   lineinfile:
     dest: /etc/environment
@@ -193,12 +220,17 @@
 #   shell: "touch /box/.lnd/.cookie"
 #   become: yes
 
-- name: Start container
+- name: Start container [proxy]
+  shell: "cd /box && docker-compose -f docker-compose.proxy.yml up -d"
+  become: yes
+  when: not hostvars[inventory_hostname].testnet
+
+- name: Start container [relay]
   shell: "cd /box && docker-compose up -d"
   become: yes
   when: not hostvars[inventory_hostname].testnet
 
-- name: Start container [testnet]
+- name: Start container [relay] [testnet]
   shell: "cd /box && docker-compose -f docker-compose-testnet.yml up -d"
   become: yes
   when: hostvars[inventory_hostname].testnet
