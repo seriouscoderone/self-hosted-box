@@ -14,6 +14,9 @@ entryPoints:
   thunderhub:
     address: ":3000"
 
+  relay:
+    address: ":3001"
+
 log:
   level: "DEBUG"
 
@@ -24,7 +27,7 @@ accessLog:
 certificatesResolvers:
   myresolver:
     acme:
-      email: info@getzion.com
+      email: support@getzion.com
       storage: /letsencrypt/acme.json
       caServer: https://acme-v02.api.letsencrypt.org/directory
       dnsChallenge:

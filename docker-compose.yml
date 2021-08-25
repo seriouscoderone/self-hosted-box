@@ -16,7 +16,7 @@ services:
     ports:
       # - "8080:8080"
       - "8333:8333"
-      - "8888:8888"
+      - "3001:3001"
       - "9735:9735"
       - "10009:10009"
 
@@ -24,7 +24,7 @@ services:
 
     environment:
       - NODE_ENV=production
-      - PORT=8888
+      - PORT=3001
       - NODE_DOMAIN=$NODE_DOMAIN
       - NODE_IP=$NODE_IP
       - NODE_ALIAS=$NODE_ALIAS
@@ -32,6 +32,18 @@ services:
       - MEDIA_HOST_PROTOCOL=$MEDIA_HOST_PROTOCOL
       - MEDIA_HOST=$MEDIA_HOST
       - MACAROON_LOCATION=$MACAROON_LOCATION
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.relay.tls=true"
+
+      - "traefik.http.routers.relay.rule=Host(`$NODE_DOMAIN`)"
+      - "traefik.http.services.relay.loadbalancer.server.port=3001"
+      - "traefik.http.routers.relay.tls.certresolver=myresolver"
+      - "traefik.http.routers.relay.entrypoints=websecure"
+
+    # depends_on:
+    #   - reverse-proxy
 
     env_file:
       - /etc/environment

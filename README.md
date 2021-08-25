@@ -71,7 +71,7 @@ CONNECT_UI=true
 Choose Option 1 start_cluster
 ```
 
-2. Go to http://yourdomain.com:8888/ for your access key.
+2. Go to http://yourdomain.com:3001/connect for your access key.
    
 WARNING:
 The following deploys a box without TLS access, use this at your own risk.

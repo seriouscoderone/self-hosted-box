@@ -1,0 +1,47 @@
+version: "2"
+volumes:
+  node_modules:
+
+services:
+  reverse-proxy:
+    container_name: proxy
+    # The official v2 Traefik docker image
+    image: traefik:v2.2.1
+    # Enables the web UI and tells Traefik to listen to docker
+    # command: --configFile=/home/ec2-user/sphinx-deploy/traefik.yaml
+    command:
+      # - "--log.level=DEBUG"
+      - "--logLevel=DEBUG"
+      - "--traefikLog.filePath=/var/log/traefik.log"
+      - "--traefikLog.format=json"
+      - "--accessLog.filePath=/var/log/access.log"
+      - "--accessLog.format=json"
+    ports:
+      # The HTTP port
+      # - 80:80
+      # The Web UI (enabled by --api.insecure=true)
+      - 8080:8080
+      # entrypoints
+      - 443:443
+      - 5000:5000
+
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./docker/traefik.yaml:/etc/traefik/traefik.yaml
+      - ./docker/letsencrypt:/letsencrypt
+
+    environment:
+      - AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+      - AWS_REGION=$AWS_REGION
+
+    logging:
+      options:
+        max-size: 10m
+
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 1000000
+        hard: 1000000

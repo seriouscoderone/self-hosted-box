@@ -116,10 +116,22 @@ function_menu_backup () {
 
 function_menu_compose () {
   PS3='Please enter your choice: '
-    options=("compose_thunderhub" "kill_relay" "kill_thundehub" "quit")
+    options=("compose_relay" "compose_proxy" "compose_thunderhub" "kill_relay" "kill_proxy" "kill_thundehub" "quit")
     select opt in "${options[@]}"
     do
         case $opt in
+            "compose_relay")
+                cmd="docker-compose up -d"
+                echo $cmd
+                $cmd          
+                ;;
+
+            "compose_proxy")
+                cmd="docker-compose -f docker-compose.proxy.yml up -d"
+                echo $cmd
+                $cmd          
+                ;;
+
             "compose_thunderhub")
                 cmd="docker-compose -f docker-compose.thunderhub.yml up -d"
                 echo $cmd
@@ -132,13 +144,16 @@ function_menu_compose () {
                 $cmd          
                 ;;
 
+            "kill_proxy")
+                cmd="docker kill proxy"
+                echo $cmd
+                $cmd             
+                ;;
+
             "kill_thunderhub")
-                cmd="docker kill proxy"
-                echo $cmd
-                $cmd   
                 cmd="docker kill thunderhub"
                 echo $cmd
-                $cmd            
+                $cmd             
                 ;;
 
             "quit")
@@ -152,34 +167,6 @@ function_menu_compose () {
         esac
     done
 }
-
-function_menu_kill () {
-  PS3='Please enter your choice: '
-    options=("dash" "quit")
-    select opt in "${options[@]}"
-    do
-        case $opt in
-            "dash")
-                cmd="docker kill proxy"
-                echo $cmd
-                $cmd   
-                cmd="docker kill thunderhub"
-                echo $cmd
-                $cmd            
-                ;;
-
-            "quit")
-                break
-                ;;
-            *) 
-                PS3="" # this hides the prompt
-                echo asdf | select foo in "${options[@]}"; do break; done # dummy select 
-                PS3="Please enter your choice: " # this displays the common prompt
-                ;;
-        esac
-    done
-}
-
 
 PS3='Please enter your choice: '
 options=("bash" "purge" "docker" "backup" "logs_thunderhub" "git_pull" "quit")
