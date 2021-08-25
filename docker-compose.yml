@@ -40,7 +40,7 @@ services:
       - "traefik.http.routers.relay.rule=Host(`$NODE_DOMAIN`)"
       - "traefik.http.services.relay.loadbalancer.server.port=3001"
       - "traefik.http.routers.relay.tls.certresolver=myresolver"
-      - "traefik.http.routers.relay.entrypoints=websecure"
+      - "traefik.http.routers.relay.entrypoints=relay"
 
     # depends_on:
     #   - reverse-proxy

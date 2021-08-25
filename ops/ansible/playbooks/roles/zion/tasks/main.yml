@@ -234,7 +234,3 @@
   shell: "cd /box && docker-compose -f docker-compose-testnet.yml up -d"
   become: yes
   when: hostvars[inventory_hostname].testnet
-
-- name: Timeout
-  pause:
-    seconds: 10
